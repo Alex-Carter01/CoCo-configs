@@ -14,7 +14,7 @@
 # https://github.com/kata-containers/kata-containers/blob/main/docs/how-to/how-to-run-kata-containers-with-SNP-VMs.md
 
 [hypervisor.qemu]
-path = "@QEMUSNPPATH@"
+path = "/opt/confidential-containers/bin/qemu-system-x86_64"
 kernel = "/opt/confidential-containers/share/kata-containers/vmlinuz-sev.container"
 #SNP should be able to use SEV kernel and initrd with things being passed via kernel params
 initrd = "/opt/confidential-containers/share/kata-containers/kata-containers-initrd-sev.img"
@@ -60,7 +60,7 @@ enable_annotations = ["enable_iommu"]
 # Each member of the list is a path pattern as described by glob(3).
 # The default if not set is empty (all annotations rejected.)
 # Your distribution recommends: ["/opt/confidential-containers/bin/qemu-system-x86_64"]
-valid_hypervisor_paths = @QEMUSNPVALIDHYPERVISORPATHS@
+valid_hypervisor_paths = ["/opt/confidential-containers/bin/qemu-system-x86_64"] 
 
 # Optional space-separated list of options to pass to the guest kernel.
 # For example, use `kernel_params = "vsyscall=emulate"` if you are having
@@ -73,7 +73,7 @@ valid_hypervisor_paths = @QEMUSNPVALIDHYPERVISORPATHS@
 # To see the list of default parameters, enable hypervisor debug, create a
 # container and look for 'default-kernel-parameters' log entries.
 
-kernel_params = "@SNPKERNELPARAMS@"
+kernel_params = "agent.config_file=/etc/agent-config.toml agent.enable_signature_verification=true agent.aa_kbc_params=online_sev_kbc::172.16.17.43:44444 "
 
 # Path to the firmware.
 # If you want that qemu uses the default firmware leave this option empty
